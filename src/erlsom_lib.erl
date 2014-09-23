@@ -728,6 +728,19 @@ findFile(Namespace, Location, IncludeFiles, IncludeDirs) ->
       {getFile(Location, IncludeDirs), undefined}
   end.
 
+getFile("http://"++_ = URL, _) ->
+	case httpc:request(URL) of
+		{ok,{{_HTTP,200,_OK}, _Headers, Body}} ->
+			toUnicode(Body);
+		{ok,{{_HTTP,RC,Emsg}, _Headers, _Body}} ->
+			error_logger:error_msg("~p: http-request got: ~p~n",
+				[?MODULE, {RC, Emsg}]),
+			{error, "failed to retrieve: "++URL};
+		{error, Reason} ->
+			error_logger:error_msg("~p: http-request failed: ~p~n",
+				[?MODULE, Reason]),
+			{error, "failed to retrieve: "++URL}
+	end;
 getFile("https://"++_ = URL, _) ->
 	case httpc:request(URL) of
 		{ok,{{_HTTP,200,_OK}, _Headers, Body}} ->
