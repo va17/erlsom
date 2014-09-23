@@ -729,7 +729,7 @@ findFile(Namespace, Location, IncludeFiles, IncludeDirs) ->
   end.
 
 getFile("http://"++_ = URL, _) ->
-	case httpc:request(URL) of
+	case httpc:request(get, {URL, [{"user-agent", "erlsom"}]}, [], []) of
 		{ok,{{_HTTP,200,_OK}, _Headers, Body}} ->
 			toUnicode(Body);
 		{ok,{{_HTTP,RC,Emsg}, _Headers, _Body}} ->
@@ -742,7 +742,7 @@ getFile("http://"++_ = URL, _) ->
 			{error, "failed to retrieve: "++URL}
 	end;
 getFile("https://"++_ = URL, _) ->
-	case httpc:request(URL) of
+	case httpc:request(get, {URL, [{"user-agent", "erlsom"}]}, [], []) of
 		{ok,{{_HTTP,200,_OK}, _Headers, Body}} ->
 			toUnicode(Body);
 		{ok,{{_HTTP,RC,Emsg}, _Headers, _Body}} ->
