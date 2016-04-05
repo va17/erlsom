@@ -141,7 +141,7 @@ compile_xsd_file(XsdFile, Options) ->
 %% xml2struct.erl
 %%----------------------------------------------------------------------
 compile(Xsd) ->
-  compile_xsd(Xsd, [{prefix, "p"}]).
+  compile_xsd(Xsd, [{prefix, "ns1"}]).
 
 compile(Xsd, Prefix) ->
   compile_xsd(Xsd, [{prefix, Prefix}]).
@@ -150,7 +150,7 @@ compile(Xsd, Prefix, Namespaces) ->
   compile_xsd(Xsd, [{prefix, Prefix}, {namespaces, Namespaces}]).
 
 compile_file(XsdFile) ->
-  compile_file(XsdFile, "p").
+  compile_file(XsdFile, "ns1").
 
 compile_file(XsdFile, Prefix) ->
   compile_file(XsdFile, Prefix, []).
@@ -399,7 +399,7 @@ write_xsd_hrl_file(Xsd, Output, Options) ->
   end.
 
 write_hrl_file(Xsd, Output) ->
-  write_hrl_file(Xsd, "p", [], Output).
+  write_hrl_file(Xsd, "ns1", [], Output).
 
 write_hrl_file(Xsd, Prefix, Output) ->
   write_hrl_file(Xsd, Prefix, [], Output).
