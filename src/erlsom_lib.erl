@@ -263,7 +263,7 @@ findPrefix2(Namespace, Namespaces) ->
     {value, #ns{prefix = Prefix}} ->
       Prefix;
     _Else ->
-      "P"
+      "ns1"
   end.
 
 makeTypeName(Name, Prefix) ->
